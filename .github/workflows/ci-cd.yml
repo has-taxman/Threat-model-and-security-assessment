@@ -1,24 +1,26 @@
-name: Test OIDC Auth Only
+name: OIDC Auth Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-auth:
+  test-oidc-auth:
     runs-on: ubuntu-latest
+
     permissions:
       id-token: write
       contents: read
 
     steps:
-      - name: Configure AWS credentials
+      - name: 🔐 Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           aws-region: eu-north-1
 
-      - name: Get caller identity
+      - name: 🔎 Check identity
         run: aws sts get-caller-identity
+
 
 
 

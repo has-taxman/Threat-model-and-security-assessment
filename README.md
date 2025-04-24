@@ -14,18 +14,18 @@ It features:
 ---
 ## Task/Assignment 📝
 
-- Create your own repository and complete the task there. You may create a `app` in your repo and copy all the files in this directory into it. Or alternatively, you can use this directory as is. Your choice.
+- My task was to create a repository and create an `app` in your repo and copy all the files in this directory into it.
 
-- Your task will be to create a container image for the app, push it to ECR (recommended) or DockerHub. Ideally, you should use a CI/CD pipeline to build, test, and push the container image.
+- Then, create a container image for the app, push it to ECR (recommended) or DockerHub. Ideally, I should use a CI/CD pipeline to build, test, and push the container image.
 
 - Deploy the app on ECS using Terraform. All the resources should be provisioned using Terraform. Use TF modules.
 
 - Make sure the app is live on `https://tm.<your-domain>` or `https://tm.labs.<your-domain>`
 
-- App must use HTTPS. Hosted on ECS. Figure out the rest. Once app is live, add screenshots to the README.md file.
+- App must use HTTPS. Hosted on ECS. Figure out the rest. Once app is live, add a detailed README.md file.
 
-- Add architecture diagram of how the infrastructure is setup. (Use Lucidchart or draw.io or mermaid) You are free to use any diagramming tool.
-
+- Add architecture diagram of how the infrastructure is setup.
+  
 ## Local app setup 💻
 
 ```bash

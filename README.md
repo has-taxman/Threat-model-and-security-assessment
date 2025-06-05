@@ -16,7 +16,7 @@ It features:
 
 - My task was to create a repository and create an `app` in your repo and copy all the files in this directory into it.
 
-- Then, create a container image for the app, push it to ECR (recommended) or DockerHub. Ideally, I should use a CI/CD pipeline to build, test, and push the container image.
+- Then, create a container image for the app, push it to ECR (recommended) or DockerHub. Ideally, I should use a CI/CD pipeline to build, test, and push the container image. Use the push_to_ecr.sh script to upload the image to ECR.
 
 - Deploy the app on ECS using Terraform. All the resources should be provisioned using Terraform. Use TF modules.
 

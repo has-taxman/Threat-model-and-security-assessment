@@ -1,0 +1,79 @@
+name: Test AWS OIDC
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-auth:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+          aws-region: eu-north-1
+
+      - name: Test AWS CLI
+        run: aws sts get-caller-identity
+
+
+# Commented out the CI/CD pipeline. Including a test the auth step workflow as a placeholder.
+
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# env:
+#   AWS_REGION: eu-north-1
+#   ECR_REPOSITORY: threat-model
+#   ECS_CLUSTER: ecs-cluster
+#   ECS_SERVICE: app-service
+#   CONTAINER_NAME: app
+#   IMAGE_TAG: latest  # Or use ${{ github.sha }}
+
+# jobs:
+#   build-and-deploy:
+#     name: Build, Push to ECR, and Deploy to ECS
+#     runs-on: ubuntu-latest
+
+#     permissions:
+#       id-token: write
+#       contents: read
+
+#     steps:
+#       - name: 📦 Checkout source
+#         uses: actions/checkout@v3
+
+#       - name: 🔐 Configure AWS credentials (OIDC)
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
+#           aws-region: ${{ env.AWS_REGION }}
+
+#       - name: 🔓 Log in to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
+
+#       - name: 🛠️ Build Docker image
+#         run: |
+#           docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+#           docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+
+#       - name: 🚀 Push Docker image to Amazon ECR
+#         run: |
+#           docker push ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+
+#       - name: 📦 Deploy to Amazon ECS
+#         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#         with:
+#           task-definition: ecs-task-def.json
+#           service: ${{ env.ECS_SERVICE }}
+#           cluster: ${{ env.ECS_CLUSTER }}
+#           wait-for-service-stability: true
